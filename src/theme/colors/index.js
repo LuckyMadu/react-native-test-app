@@ -9,7 +9,10 @@ const COLORS = {
   ACCENT: '#F3534A',
   BLACK: '#000000',
   WHITE: '#FFFFFF',
-  GRAY: '#C5CCD6',
+  GRAY: '#7d7d7d',
+  LIGHT_GRAY: '#dedede',
+  DARK_GRAY: '#2e2e2e',
+  GREEN: '#00a118',
   //warning
   WARNING: '#ff2640',
   //cards
