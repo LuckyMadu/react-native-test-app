@@ -1,18 +1,17 @@
 import React from 'react';
-import { StatusBar} from 'react-native';
-import {Home} from './src/screens'
+import {StatusBar} from 'react-native';
+import {Home} from './src/screens';
 // styles
-import { Container } from './App.styles';
+import {TopSafeAreaView} from './App.styles';
 
 const App = () => {
   return (
-    <Container>
-      <StatusBar barStyle={'light-content'} />
-      <Home/>
-    </Container>
+    <>
+      <TopSafeAreaView/>
+      <StatusBar barStyle="light-content" />
+      <Home />
+    </>
   );
 };
-
-
 
 export default App;

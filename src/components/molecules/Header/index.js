@@ -9,18 +9,11 @@ export const Header = () => {
   return (
     <Container>
       <Text
-        fontSize="17px"
-        fontColor={COLORS.TEXT_PRIMARY}
+        fontSize="20px"
+        fontColor={COLORS.WHITE}
         fontWeight={600}
         align="center">
-        HEADER 1{'\n'}
-        <Text
-          fontSize="12px"
-          fontColor={COLORS.TEXT_PRIMARY}
-          fontWeight={500}
-          align="center">
-            HEADER 2
-        </Text>
+        Top Related Movies
       </Text>
     </Container>
   );

@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
+import COLORS from './src/theme/colors'
 
-export const Container = styled.View`
-  flex: 1;
+export const TopSafeAreaView = styled.SafeAreaView`
+  flex: 0;
+  background-color: ${COLORS.PRIMARY};
 `;
