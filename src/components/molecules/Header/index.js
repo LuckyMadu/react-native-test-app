@@ -13,7 +13,7 @@ export const Header = () => {
         fontColor={COLORS.WHITE}
         fontWeight={600}
         align="center">
-        Top Related Movies
+        Top Rated Movies
       </Text>
     </Container>
   );
