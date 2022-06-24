@@ -10,8 +10,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "prop-types": "^15.8.1",
     "react": "17.0.2",
-    "react-native": "0.68.2"
+    "react-native": "0.68.2",
+    "react-native-flash-message": "^0.2.1",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
