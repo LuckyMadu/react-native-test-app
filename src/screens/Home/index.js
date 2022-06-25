@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, RefreshControl, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import NetInfo from '@react-native-community/netinfo';
 //components
 import { Loader } from '../../components/atoms';
 import { Header } from '../../components/molecules';
 import { HomeCard } from '../../components/templates';
 //actions
 import { fetchAllMovies, clearAllMovies } from '../../redux/actions/movie';
+import StorageHelper from '../../utils/StorageHelper'
+import makeToast from '../../utils/toaster'
 //styles
 import COLORS from '../../theme/colors';
 import { Container } from './Home.styles';
 
-export const Home = (props) => {
+export const Home = () => {
   // states
   const [movieListRefreshing, setMovieListRefreshing] = useState(false);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [isOffline, setOfflineStatus] = useState(false);
   // connect actions
   const dispatch = useDispatch();
   // connect redux store
@@ -22,40 +27,67 @@ export const Home = (props) => {
   const movieListInfo = useSelector(state => state.movie.movieListInfo);
 
   useEffect(() => {
-    //fetch top rated movies when mounting
-    dispatch(fetchAllMovies({ page: 1 }));
+    /**
+      * @description Network listener
+    */
+    const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
+      const offline = !(state.isConnected && state.isInternetReachable);
+      setOfflineStatus(offline);
+    });
+
+    fetchMovieData();
+
+    return () => removeNetInfoSubscription();
   }, []);
+
+  const fetchMovieData = async () => {
+    //fetch top rated movies when mounting
+    await dispatch(fetchAllMovies({ page: 1 }));
+    fetchSavedMovies();
+
+  }
+
+  const fetchSavedMovies = async () => {
+    let savedMovieList = await StorageHelper.getMovieData();
+    let convertedSavedMovieList = await JSON.parse(savedMovieList);
+    setSavedMovies(convertedSavedMovieList);
+  }
 
   /**
    * @description Refreshing movie list
    */
   const refreshMovieList = () => {
+    if (isOffline) {
+      makeToast('danger', 'Sorry, you are offline!')
+    }
     dispatch(clearAllMovies());
     setMovieListRefreshing(false);
     dispatch(fetchAllMovies({ page: 1 }));
   };
 
   const listFooterComponent = () => {
-    return isFetching && <Loader color={COLORS.PRIMARY} size={24} />;
+    return isFetching && <Loader color={COLORS.PRIMARY} />;
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore = async () => {
+    if (isOffline) {
+      makeToast('danger', 'Sorry, you are offline!')
+    }
     let passParams = {
       page: movieListInfo && movieListInfo.page + 1,
     };
 
-    dispatch(fetchAllMovies(passParams));
+    await dispatch(fetchAllMovies(passParams));
+    fetchSavedMovies();
   };
 
   return (
     <Container testID="component-home">
-      {/* Loading Indicator */}
-      {isFetching && <Loader />}
       {/* Top safearea header */}
       <Header />
       {/* Movie List */}
       <FlatList
-        data={movieList}
+        data={isOffline ? savedMovies : movieList}
         keyExtractor={(item, index) => {
           return item.id.toString();
         }}

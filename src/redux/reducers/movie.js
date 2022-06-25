@@ -1,4 +1,5 @@
 import * as Types from '../actionTypes';
+import StorageHelper from '../../utils/StorageHelper'
 
 const initialState = {
     isFetching: false,
@@ -19,6 +20,8 @@ const movieReducer = (state = initialState, action) => {
                 isFetching: false,
             };
         case Types.ALL_MOVIES:
+            //save latest movie list to the local storage
+            StorageHelper.setMovieData(JSON.stringify(action.payload));
             return {
                 ...state,
                 movieList: [...state.movieList, ...action.payload],

@@ -1,4 +1,4 @@
-import {showMessage} from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
 /**
  * @description Common flash message
@@ -10,7 +10,7 @@ export const makeToast = (type, message) => {
     type,
     message,
     icon: 'auto',
-    duration: 3000,
+    duration: 5000,
   });
 };
 

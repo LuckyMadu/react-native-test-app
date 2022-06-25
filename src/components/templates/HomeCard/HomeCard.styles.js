@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import COLORS from '../../../theme/colors';
 
 //set poster banner height
-const IMAGE_HEIGHT = 250;
+const IMAGE_HEIGHT = 260;
 
 export const Container = styled.View`
   flex-direction: row;
