@@ -31,8 +31,11 @@ export const Home = () => {
       * @description Network listener
     */
     const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
-      const offline = !(state.isConnected && state.isInternetReachable);
+      const offline = !state.isConnected;
       setOfflineStatus(offline);
+      if (offline) {
+        makeToast('danger', `Sorry, you are offline! \nWe have fetched latest movies till you come back!`)
+      }
     });
 
     fetchMovieData();
@@ -44,7 +47,6 @@ export const Home = () => {
     //fetch top rated movies when mounting
     await dispatch(fetchAllMovies({ page: 1 }));
     fetchSavedMovies();
-
   }
 
   const fetchSavedMovies = async () => {
