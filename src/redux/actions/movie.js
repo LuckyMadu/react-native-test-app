@@ -1,14 +1,16 @@
 import { showMessage } from 'react-native-flash-message';
 import * as Types from '../actionTypes';
+import { API_ROOT } from '../../config';
 import Interceptor from '../../api/apiHelper';
 
 /**
  * GET - All movies
  * @function fetchAllMovies
- */
-export const fetchAllMovies = () => async (dispatch) => {
+ * @param {Object} params - page number
+*/
+export const fetchAllMovies = (params) => async (dispatch) => {
     dispatch({ type: Types.FETCHING });
-    Interceptor.get()
+    Interceptor.get(null, { params })
         .then(async (response) => {
             dispatch({ type: Types.FETCHED });
             if (response?.status == 200) {
@@ -37,4 +39,9 @@ export const fetchAllMovies = () => async (dispatch) => {
             dispatch({ type: Types.FETCHED });
             console.log('fetch movies error', err);
         });
+};
+
+// clear list of movies
+export const clearAllMovies = () => (dispatch) => {
+    dispatch({ type: Types.CLEAR_ALL_MOVIES, payload: [] });
 };
