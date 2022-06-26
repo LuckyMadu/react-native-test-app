@@ -82,10 +82,10 @@ React-native application for fetching top-rated movies from **The Movie Database
   </tr>
   <tr>
     <td>
-      <img src="https://user-images.githubusercontent.com/19740478/175804413-57cc25aa-2840-47c0-8435-e2cb5569123e.png" width=400 height=700>
+      <img src="https://user-images.githubusercontent.com/19740478/175804413-57cc25aa-2840-47c0-8435-e2cb5569123e.png" width=300 height=700>
     </td>
      <td>
-      <img src="https://user-images.githubusercontent.com/19740478/175807509-2d45cdd5-f499-4f22-9a39-1b22c9cc8539.png" width=400 height=700>
+      <img src="https://user-images.githubusercontent.com/19740478/175807509-2d45cdd5-f499-4f22-9a39-1b22c9cc8539.png" width=300 height=700>
     </td>
   </tr>
 </table>
