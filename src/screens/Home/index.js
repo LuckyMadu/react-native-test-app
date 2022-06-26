@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, RefreshControl, ActivityIndicator } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
 //components
@@ -28,27 +28,35 @@ export const Home = () => {
 
   useEffect(() => {
     /**
-      * @description Network listener
+     * Network listener
+     * @param state network conditions
     */
     const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
       const offline = !state.isConnected;
+      //update network status
       setOfflineStatus(offline);
+
       if (offline) {
         makeToast('danger', `Sorry, you are offline! \nWe have fetched latest movies till you come back!`)
       }
     });
-
+    // fetch top rated movie list when mounting
     fetchMovieData();
 
     return () => removeNetInfoSubscription();
   }, []);
 
+  /**
+    * Call initial and saved movie list
+   */
   const fetchMovieData = async () => {
-    //fetch top rated movies when mounting
     await dispatch(fetchAllMovies({ page: 1 }));
     fetchSavedMovies();
   }
 
+  /**
+   * Fetch saved movie list
+   */
   const fetchSavedMovies = async () => {
     let savedMovieList = await StorageHelper.getMovieData();
     let convertedSavedMovieList = await JSON.parse(savedMovieList);
@@ -56,29 +64,41 @@ export const Home = () => {
   }
 
   /**
-   * @description Refreshing movie list
+   *  Pull Refreshing movie list
    */
   const refreshMovieList = () => {
+    //show no network connection message if there is no network
     if (isOffline) {
       makeToast('danger', 'Sorry, you are offline!')
     }
+    //clear movie list for refreshing
     dispatch(clearAllMovies());
+    //reset refresh status
     setMovieListRefreshing(false);
+    //call service
     dispatch(fetchAllMovies({ page: 1 }));
   };
 
+  /**
+     * Loading spinner when doing infinite scrolling
+   */
   const listFooterComponent = () => {
     return isFetching && <Loader color={COLORS.PRIMARY} />;
   };
 
+  /**
+     * Load pagination data
+   */
   const handleLoadMore = async () => {
+    //show no network connection message if there is no network
     if (isOffline) {
       makeToast('danger', 'Sorry, you are offline!')
     }
+    // increase page number to load next page data
     let passParams = {
       page: movieListInfo && movieListInfo.page + 1,
     };
-
+    //call services
     await dispatch(fetchAllMovies(passParams));
     fetchSavedMovies();
   };

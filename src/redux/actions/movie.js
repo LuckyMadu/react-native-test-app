@@ -16,7 +16,6 @@ export const fetchAllMovies = (params) => async (dispatch) => {
             dispatch({ type: Types.FETCHED });
             //check response status
             if (response?.status == 200) {
-                console.log("response", response);
                 //dispatch movie list to the reducer
                 dispatch({ type: Types.ALL_MOVIES, payload: response.data.results });
                 //check infinite scrolling with page numbers
@@ -38,15 +37,25 @@ export const fetchAllMovies = (params) => async (dispatch) => {
                     });
                 }
             } else if (response?.status == 401) {
-                console.log('fetch movies error', err);
+                // handle 401 error
+                console.log('401 error', response.statusText ? response.statusText : null);
+                makeToast('danger', response.statusText ? response.statusText : 'Something went wrong!')
+            } else if (response?.status == 404) {
+                // handle 404 error
+                console.log('404 error', response.statusText ? response.statusText : null);
+                makeToast('danger', response.statusText ? response.statusText : '404 Not Found')
             } else {
-                console.log('fetch movies error', err);
+                // handle any error
+                console.log('fetch movies error', response.statusText);
+
             }
         })
         .catch((err) => {
             //stop fetching
             dispatch({ type: Types.FETCHED });
             console.log('fetch movies error', err);
+            makeToast('danger', err.data.status_message ? err.data.status_message : '404 Not Found')
+
         });
 };
 
