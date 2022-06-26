@@ -11,12 +11,14 @@ React-native application for fetching top-rated movies from **The Movie Database
 ### App Screenshots
 <table>
   <tr>
-    <td>Home Screen Page</td>
+    <td>**Home Screen Page**</td>
     <td>Pull Refresh</td>
     <td>Infinite Scrolling</td>
   </tr>
   <tr>
-    <td>![home](https://user-images.githubusercontent.com/19740478/175801912-5c20bbce-bbf6-48f4-ba61-19cc2c425b98.png)</td>
+    <td>
+      <img src="[screenshots/Screenshot_1582745092.png](https://user-images.githubusercontent.com/19740478/175801912-5c20bbce-bbf6-48f4-ba61-19cc2c425b98.png)" width=270 height=480>
+    </td>
     <td>![home](https://user-images.githubusercontent.com/19740478/175801912-5c20bbce-bbf6-48f4-ba61-19cc2c425b98.png)</td>
     <td>![home](https://user-images.githubusercontent.com/19740478/175801912-5c20bbce-bbf6-48f4-ba61-19cc2c425b98.png)</td>
   </tr>
