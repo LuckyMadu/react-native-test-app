@@ -26,6 +26,7 @@ export const Home = () => {
   const movieList = useSelector(state => state.movie.movieList);
   const movieListInfo = useSelector(state => state.movie.movieListInfo);
 
+
   useEffect(() => {
     /**
      * Network listener
