@@ -6,7 +6,7 @@ React-native application for fetching top-rated movies from **The Movie Database
 2. yarn install
 3. cd ios
 4. pod install
-5. Now you can run both iOS and Android apps.
+5. Now you can run both iOS and Android apps
 
 ### Features And Technologies Used 
 
